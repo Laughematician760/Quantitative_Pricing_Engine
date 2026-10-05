@@ -9,7 +9,7 @@ def price_call_option(S, u, d, K, r):
 
 
 
-#Multi-period binomial tree model
+#Multi-period model
 
 def price_call_option_multi_period(S, u, d, K, r, N):
     # Phase 1: Terminal State Generation
