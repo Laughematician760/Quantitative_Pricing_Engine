@@ -1,4 +1,7 @@
+#import library
 import numpy as np
+
+import math
 
 #single period binomial model
 def price_call_option(S, u, d, K, r):
@@ -35,3 +38,16 @@ def price_call_option_multi_period(S, u, d, K, r, N):
 print(f"1-Period Price: {price_call_option_multi_period(100, 1.20, 0.90, 100, 0.05, 1):.4f}")
 print(f"3-Period Price: {price_call_option_multi_period(100, 1.20, 0.90, 100, 0.05, 3):.4f}")
 print(f"1000-Period Price: {price_call_option_multi_period(100, 1.20, 0.90, 100, 0.05, 1000):.4f}")
+
+#Cox-Ross-Rubenstein wrapper function
+
+def price_call_option_crr(S, K, T, r, sigma, N):
+    delta_t = T/N
+    u = math.exp(sigma*math.sqrt(delta_t))
+    d = math.exp(-sigma*math.sqrt(delta_t))
+    cc_rate_step = math.exp(r*delta_t)-1
+
+    return price_call_option_multi_period(S, u, d, K, cc_rate_step, N)
+
+
+print(price_call_option_crr(100, 100, 1, .05, .20, 1000))
